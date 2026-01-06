@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<link rel="stylesheet" href="css/css.css">
+		<style>
+			/* 轮播图样式 */
+			.carousel-container {
+				position: relative;
+				width: 100%;
+				overflow: hidden;
+			}
+			.carousel-wrapper {
+				display: flex;
+				transition: transform 0.5s ease;
+			}
+			.carousel-item {
+				min-width: 100%;
+			}
+			.carousel-img {
+				width: 100%;
+				height: auto;
+				display: block;
+			}
+			/* 轮播控制按钮 */
+			.carousel-btn {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 50px;
+				height: 50px;
+				background: rgba(0,0,0,0.3);
+				color: white;
+				border: none;
+				font-size: 20px;
+				cursor: pointer;
+				z-index: 10;
+			}
+			.prev-btn {
+				left: 20px;
+			}
+			.next-btn {
+				right: 20px;
+			}
+			/* 轮播指示器 */
+			.carousel-indicators {
+				position: absolute;
+				bottom: 20px;
+				left: 0;
+				right: 0;
+				text-align: center;
+			}
+			.indicator {
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: rgba(255,255,255,0.5);
+				margin: 0 5px;
+				cursor: pointer;
+			}
+			.indicator.active {
+				background: white;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 黑色导航 start -->
+		<div class="black-nav">
+		    <div class="wrap">
+		        <div class="black-nav-right">
+		    	<li><a href="index.html" >首页</a><span>|</span></li>
+		    	     <li><a href="guanwang.html" >官网</a><span>|</span></li>
+		    	     <li><a href="detail1.html" >产品信息</a><span>|</span></li>
+		    	<li><a href="./news.html" >新闻</a><span>|</span></li>		    	
+		    	<li><a href="./register.html">注册</a><span>|</span></li>
+		    	<li><a href="./detail.html" >购物车</a><span>|</span></li>
+		    	     </div>
+		    </div>
+		</div>
+		<!-- 黑色导航 end -->
+		
+		<!-- 轮播图区域 -->
+		<div class="carousel-container">
+			<div class="carousel-wrapper">
+				<div class="carousel-item">
+					<img src="img/banner3.jpg" class="carousel-img" alt="轮播图1">
+				</div>
+				<div class="carousel-item">
+					<img src="img/banner2.png" class="carousel-img" alt="轮播图2">
+				</div>
+				<div class="carousel-item">
+					<img src="img/banner1.jpg" class="carousel-img" alt="轮播图3">
+				</div>
+								<div class="carousel-item">
+					<img src="img/banner4.png" class="carousel-img" alt="轮播图4">
+				</div>
+			</div>
+			<button class="carousel-btn prev-btn"><</button>
+			<button class="carousel-btn next-btn">></button>
+			<div class="carousel-indicators">
+				<span class="indicator active" data-index="0"></span>
+				<span class="indicator" data-index="1"></span>
+				<span class="indicator" data-index="2"></span>
+								<span class="indicator" data-index="3"></span>
+
+
+			</div>
+		</div>
+
+		<script>
+			// 轮播图逻辑
+			const wrapper = document.querySelector('.carousel-wrapper');
+			const items = document.querySelectorAll('.carousel-item');
+			const indicators = document.querySelectorAll('.indicator');
+			const prevBtn = document.querySelector('.prev-btn');
+			const nextBtn = document.querySelector('.next-btn');
+			let currentIndex = 0;
+			const itemCount = items.length;
+
+			// 更新轮播位置
+			function updateCarousel() {
+				wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+				// 更新指示器状态
+				indicators.forEach((ind, idx) => {
+					ind.classList.toggle('active', idx === currentIndex);
+				});
+			}
+
+			// 下一张
+			function nextSlide() {
+				currentIndex = (currentIndex + 1) % itemCount;
+				updateCarousel();
+			}
+
+			// 上一张
+			function prevSlide() {
+				currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+				updateCarousel();
+			}
+
+			// 自动轮播
+			let autoplay = setInterval(nextSlide, 5000);
+
+			// 事件监听
+			nextBtn.addEventListener('click', () => {
+				clearInterval(autoplay);
+				nextSlide();
+				autoplay = setInterval(nextSlide, 5000);
+			});
+
+			prevBtn.addEventListener('click', () => {
+				clearInterval(autoplay);
+				prevSlide();
+				autoplay = setInterval(nextSlide, 5000);
+			});
+
+			// 指示器点击
+			indicators.forEach(ind => {
+				ind.addEventListener('click', () => {
+					clearInterval(autoplay);
+					currentIndex = parseInt(ind.dataset.index);
+					updateCarousel();
+					autoplay = setInterval(nextSlide, 5000);
+				});
+			});
+		</script>
+	</body>	
+</html>

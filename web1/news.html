@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻中心</title>
+    <link rel="stylesheet" href="css/css.css">
+    <style>
+        /* 保持原有样式不变 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        
+        .header-wrap {
+            width: 1226px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-container { width: 1226px; margin: 20px auto; display: flex; gap: 20px; }
+        .sidebar { width: 280px; background: #fff; padding: 20px; }
+        .main { flex: 1; }
+        
+        .title { font-size: 18px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0; margin-bottom: 15px; }
+        .category-item { padding: 8px 0; border-bottom: 1px solid #eee; cursor: pointer; }
+        .category-item a { color: #666; text-decoration: none; display: block; }
+        .category-item a:hover, .category-item a.active { color: #ff6700; padding-left: 5px; }
+        
+        .news-card { background: #fff; padding: 20px; margin-bottom: 20px; transition: transform 0.3s; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .news-title { font-size: 20px; margin-bottom: 10px; }
+        .news-title a { color: #333; text-decoration: none; }
+        .news-title a:hover { color: #ff6700; }
+        .news-meta { color: #999; font-size: 14px; margin-bottom: 15px; }
+        
+        .news-summary { display: flex; gap: 20px; }
+        .news-img { width: 200px; height: 140px; object-fit: cover; }
+        .news-content { flex: 1; color: #666; line-height: 1.6; }
+        .read-more { color: #ff6700; text-decoration: none; font-size: 14px; }
+        
+        .pagination { text-align: center; margin: 30px 0; }
+        .page-btn { display: inline-block; width: 60px; height: 36px; line-height: 36px; border: 1px solid #e0e0e0; margin: 0 5px; color: #666; text-decoration: none; }
+        .page-btn:hover, .page-btn.active { background: #ff6700; color: #fff; border-color: #ff6700; }
+        
+        .footer { background: #fff; padding: 20px 0; text-align: center; margin-top: 30px; }
+        .footer a { color: #666; text-decoration: none; margin: 0 10px; }
+    </style>
+</head>
+<body>
+    <!-- 黑色导航 start -->
+    <div class="black-nav">
+       <div class="wrap">
+           <div class="black-nav-right">
+       	<li><a href="index.html" >首页</a><span>|</span></li>
+       	     <li><a href="guanwang.html" >官网</a><span>|</span></li>
+       	     <li><a href="detail1.html" >产品信息</a><span>|</span></li>
+       	<li><a href="./news.html" >新闻</a><span>|</span></li>
+       	
+       	<li><a href="./register.html" >注册</a><span>|</span></li>
+       	<li><a href="./detail.html" >购物车</a><span>|</span></li>
+       	     </div>
+       </div>
+    </div>
+    <!-- 黑色导航 end -->
+
+    <!-- 白色导航 start -->
+    <div class="white-nav">
+        <div class="header-wrap">
+            <div class="logo">
+                <img src="img/logo.png" alt="小米logo">
+            </div>
+            <div class="nav-bar">
+                <ul>
+                    <li><a href="#">手机</a></li>
+                    <li><a href="#">电视</a></li>
+                    <li><a href="#">笔记本</a></li>
+                    <li><a href="#">平板</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="搜索新闻">
+                <button class="iconfont"><img src="img/小米搜索.png" /></button>
+            </div>
+        </div>
+    </div>
+    <!-- 白色导航 end -->
+
+    <!-- 新闻内容区 -->
+    <div class="news-container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <h3 class="title">新闻分类</h3>
+            <div class="category-item" data-category="all"><a href="#" class="active">全部新闻</a></div>
+            <div class="category-item" data-category="company"><a href="#">新闻动态</a></div>
+            <div class="category-item" data-category="product"><a href="#">产品发布</a></div>
+            <div class="category-item" data-category="tech"><a href="#">技术创新</a></div>
+            <div class="category-item" data-category="social"><a href="#">社会责任</a></div>
+            
+            <h3 class="title" style="margin-top:20px;">热门新闻</h3>
+            <div class="category-item"><a href="news-detail.html?id=1">黑鲨14系列全球销量突破200万台</a></div>
+            <div class="category-item"><a href="news-detail.html?id=2">meizu Turbo 3正式发布</a></div>
+            <div class="category-item"><a href="news-detail.html?id=5">东风汽车首批量产车下线</a></div>
+        </div>
+
+        <!-- 主内容区 -->
+        <div class="main" id="newsContent">
+            <!-- 新闻内容将通过JS动态生成 -->
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <a href="#">预约维修服务</a>
+        <a href="#">7天无理由退货</a>
+        <a href="#">15天免费换货</a>
+        <a href="#">满99元免运费</a>
+    </div>
+
+    <script>
+        // 新闻数据
+        const newsData = [
+            {
+                id: 1,
+                title: "黑鲨14系列全球销量突破200万台",
+                date: "2023-12-20",
+                category: "product",
+                img: "img/sj-1.jpg",
+                summary: "黑鲨科技今日宣布，黑鲨14系列自发布以来全球销量已突破200万台，创造了品牌历史新高。该系列凭借其卓越的性能和创新的散热系统，受到了全球游戏玩家的广泛好评...",
+                content: `<p>黑鲨科技今日宣布，黑鲨14系列自发布以来全球销量已突破200万台，创造了品牌历史新高。该系列凭借其卓越的性能和创新的散热系统，受到了全球游戏玩家的广泛好评。</p>
+                          <p>黑鲨14系列搭载了最新的骁龙8 Gen3处理器，配合自研的冰封散热系统，能够在高负载游戏下保持稳定性能输出。此外，其配备的144Hz高刷新率屏幕和5000mAh大电池也是用户选择的重要原因。</p>
+                          <p>黑鲨科技CEO表示："我们对黑鲨14系列的市场表现感到非常满意，这证明了我们在游戏手机领域的技术积累和用户洞察是正确的。未来，我们将继续推出更多创新产品，为玩家带来更好的游戏体验。"</p>`
+            },
+            {
+                id: 2,
+                title: "meizu Turbo 3正式发布",
+                date: "2023-12-18",
+                category: "product",
+                img: "img/sj-2.jpg",
+                summary: "meizu今日召开新品发布会，正式推出了全新旗舰机型meizu Turbo 3。该机搭载了最新的影像系统和快充技术，号称充电五分钟，使用一整天...",
+                content: `<p>meizu今日召开新品发布会，正式推出了全新旗舰机型meizu Turbo 3。该机搭载了最新的影像系统和快充技术，号称"充电五分钟，使用一整天"。</p>
+                          <p>配置方面，meizu Turbo 3采用6.7英寸AMOLED屏幕，支持120Hz刷新率，搭载骁龙8 Gen3处理器，配备5000万像素主摄+1300万像素超广角+800万像素长焦的三摄组合。</p>
+                          <p>最引人注目的是其100W超级快充技术，官方数据显示，仅需15分钟即可将4800mAh电池充至100%。该机型起售价为4299元，将于12月25日正式开售。</p>`
+            },
+            {
+                id: 3,
+                title: "黑鲨发布全新澎湃耳机",
+                date: "2023-12-15",
+                category: "tech",
+                img: "img/zn-2.jpg",
+                summary: "今日，黑鲨正式发布了全新的澎湃耳机，这是一款面向未来的智能生态操作耳机。澎湃OS基于深度优化的内核，针对全场景智能设备进行了专门优化...",
+                content: `<p>今日，黑鲨正式发布了全新的澎湃耳机，这是一款面向未来的智能生态操作耳机。澎湃OS基于深度优化的内核，针对全场景智能设备进行了专门优化。</p>
+                          <p>该耳机采用了最新的蓝牙5.3技术，支持主动降噪和空间音频功能，单次充电可提供8小时续航，配合充电盒使用可达30小时。此外，它还支持无线充电和IP54级防尘防水。</p>
+                          <p>澎湃耳机售价为899元，将于12月20日开启预售，12月25日正式发售。</p>`
+            },
+            {
+                id: 4,
+                title: "黑鲨 Ultra荣获年度最佳游戏手机大奖",
+                date: "2023-12-10",
+                category: "company",
+                img: "img/sj-3.jpg",
+                summary: "在刚刚结束的2023年度科技大奖评选中，黑鲨 Ultra凭借其卓越的影像系统和出色的综合表现，荣获年度最佳游戏手机奖项...",
+                content: `<p>在刚刚结束的2023年度科技大奖评选中，黑鲨 Ultra凭借其卓越的影像系统和出色的综合表现，荣获"年度最佳游戏手机"奖项。</p>
+                          <p>本次评选由全球知名科技媒体TechRadar主办，共有来自全球各地的50余款旗舰手机参与评选。评委会认为，黑鲨 Ultra在游戏性能、散热系统和屏幕表现等方面均处于行业领先水平。</p>
+                          <p>黑鲨科技产品总监表示："获得这一奖项是对我们产品实力的认可，我们将继续努力，为用户带来更好的游戏手机产品。"</p>`
+            },
+            {
+                id: 5,
+                title: "东风汽车首批量产车下线",
+                date: "2023-12-05",
+                category: "company",
+                img: "img/dongfeng.jpg",
+                summary: "东风汽车今日宣布，其与黑鲨科技合作开发的首批智能电动汽车正式下线。这款车型搭载了黑鲨的智能座舱系统和自动驾驶技术...",
+                content: `<p>东风汽车今日宣布，其与黑鲨科技合作开发的首批智能电动汽车正式下线。这款车型搭载了黑鲨的智能座舱系统和自动驾驶技术。</p>
+                          <p>该车型定位中高端市场，续航里程可达600公里，支持快充技术。其智能座舱系统基于澎湃OS开发，支持语音控制、场景模式切换等功能。</p>
+                          <p>东风汽车负责人表示，与黑鲨科技的合作是传统车企与科技公司融合的一次有益尝试，未来双方将在更多领域展开深入合作。</p>`
+            },
+                        {
+                id: 6,
+                title: "黑鲨科技向山区学校捐赠1000台学习平板",
+                date: "2023-11-28",
+                category: "social", // 社会责任
+                img: "img/social-1.jpg",
+                summary: "黑鲨科技今日启动'数字助学'公益项目，向西部山区10所学校捐赠1000台定制版学习平板，助力乡村教育数字化升级...",
+                content: `<p>黑鲨科技今日启动'数字助学'公益项目，向西部山区10所学校捐赠1000台定制版学习平板，助力乡村教育数字化升级。</p>
+                          <p>此次捐赠的平板搭载了定制化的教育系统，内置了丰富的学习资源和护眼模式，专门针对山区学生的学习需求进行了优化。同时，黑鲨科技还将派驻技术人员为学校提供为期1年的设备维护和技术支持。</p>
+                          <p>黑鲨科技社会责任部负责人表示："教育是科技企业应承担的重要社会责任，我们希望通过技术手段缩小城乡教育数字鸿沟，让山区孩子也能享受到优质的教育资源。"</p>`
+            },
+            {
+                id: 7,
+                title: "黑鲨科技建成行业首个碳中和研发中心",
+                date: "2023-11-20",
+                category: "social", // 社会责任
+                img: "img/social-2.jpg",
+                summary: "黑鲨科技宣布，位于武汉的新研发中心正式投入使用，该中心是游戏硬件行业首个实现碳中和的研发基地，年减碳量达800吨...",
+                content: `<p>黑鲨科技宣布，位于武汉的新研发中心正式投入使用，该中心是游戏硬件行业首个实现碳中和的研发基地，年减碳量达800吨。</p>
+                          <p>该研发中心采用了光伏供电、智能节能空调、雨水回收等多项绿色技术，所有办公设备均选用节能产品，同时通过购买碳汇抵消剩余碳排放。此外，园区内还规划了超3000平米的绿化区域，进一步提升生态效益。</p>
+                          <p>黑鲨科技CEO表示："碳中和是企业可持续发展的必然选择，我们将持续加大在绿色科技领域的投入，为双碳目标贡献科技力量。"</p>`
+            }
+        ];
+
+        // 渲染新闻列表
+        function renderNews(category = 'all') {
+            const newsContent = document.getElementById('newsContent');
+            newsContent.innerHTML = '';
+            
+            // 筛选新闻
+            let filteredNews = newsData;
+            if (category !== 'all') {
+                filteredNews = newsData.filter(news => news.category === category);
+            }
+            
+            // 生成新闻卡片
+            filteredNews.forEach(news => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                newsCard.innerHTML = `
+                    <h2 class="news-title"><a href="news-detail.html?id=${news.id}">${news.title}</a></h2>
+                    <div class="news-meta">发布时间：${news.date} | 分类：${getCategoryName(news.category)}</div>
+                    <div class="news-summary">
+                        <img src="${news.img}" alt="${news.title}" class="news-img">
+                        <div class="news-content">
+                            <p>${news.summary}<a href="news-detail.html?id=${news.id}" class="read-more">阅读全文 →</a></p>
+                        </div>
+                    </div>
+                `;
+                newsContent.appendChild(newsCard);
+            });
+            
+            // 添加分页
+            const pagination = document.createElement('div');
+            pagination.className = 'pagination';
+            pagination.innerHTML = `
+                <a href="#" class="page-btn">上一页</a>
+                <a href="#" class="page-btn active">1</a>
+                <a href="#" class="page-btn">2</a>
+                <a href="#" class="page-btn">3</a>
+                <a href="#" class="page-btn">下一页</a>
+            `;
+            newsContent.appendChild(pagination);
+        }
+
+        // 获取分类名称
+        function getCategoryName(category) {
+            const categoryMap = {
+                'company': '新闻动态',
+                'product': '产品发布',
+                'tech': '技术创新',
+                'social': '社会责任'
+            };
+            return categoryMap[category] || '未知分类';
+        }
+
+        // 分类点击事件
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active类
+                document.querySelectorAll('.category-item a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                // 给当前点击的添加active类
+                this.querySelector('a').classList.add('active');
+                // 获取分类并渲染
+                const category = this.getAttribute('data-category');
+                if (category) {
+                    renderNews(category);
+                }
+            });
+        });
+
+        // 初始加载全部新闻
+        window.onload = function() {
+            renderNews();
+        };
+    </script>
+</body>
+</html>

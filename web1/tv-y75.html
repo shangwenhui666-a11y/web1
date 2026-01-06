@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星悦电视Y75 - 商城</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; color: #333; }
+        
+        /* 导航样式 */
+        .black-nav { background: #333; padding: 10px 0; }
+        .wrap { width: 1226px; margin: 0 auto; display: flex; justify-content: space-between; }
+        .black-nav a { color: #b0b0b0; text-decoration: none; margin: 0 8px; }
+        .black-nav a:hover { color: #fff; }
+        .black-nav ul { display: flex; list-style: none; }
+        .black-nav li { display: flex; align-items: center; }
+        .black-nav span { color: #b0b0b0; margin: 0 5px; }
+        
+        .white-nav { background: #fff; padding: 20px 0; border-bottom: 1px solid #eee; }
+        .white-nav .wrap { align-items: center; }
+        .logo img { height: 40px; }
+        .nav-bar { margin: 0 20px; }
+        .nav-bar a { color: #333; text-decoration: none; margin: 0 15px; }
+        .nav-bar a:hover { color: #ff6700; }
+        .search { margin-left: auto; }
+        .search input { padding: 8px; border: 1px solid #eee; width: 200px; }
+        .search button { padding: 8px 15px; background: #ff6700; color: white; border: none; cursor: pointer; }
+        
+        /* 产品详情样式 */
+        .product-container { width: 1226px; margin: 30px auto; display: flex; gap: 60px; }
+        .product-images { flex: 1; }
+        .product-images img { width: 100%; }
+        .thumbnail-list { display: flex; gap: 10px; margin-top: 10px; }
+        .thumbnail { width: 80px; height: 80px; cursor: pointer; border: 2px solid transparent; }
+        .thumbnail.active { border-color: #ff6700; }
+        
+        .product-info { flex: 1; }
+        .product-title { font-size: 24px; margin-bottom: 10px; }
+        .product-subtitle { color: #ff6700; margin-bottom: 20px; }
+        .product-price { background: #f5f5f5; padding: 15px; margin-bottom: 20px; }
+        .price-current { font-size: 28px; color: #ff6700; }
+        .price-original { color: #999; text-decoration: line-through; margin-left: 10px; }
+        
+        .options { margin: 20px 0; }
+        .option-title { margin-bottom: 10px; font-weight: bold; }
+        .option-item { display: inline-block; width: 120px; height: 40px; line-height: 40px; text-align: center; border: 1px solid #eee; margin-right: 15px; cursor: pointer; }
+        .option-item.active { border-color: #ff6700; }
+        
+        .buy-btn { width: 200px; height: 50px; background: #ff6700; color: #fff; border: none; cursor: pointer; font-size: 16px; margin-right: 10px; }
+        .cart-btn { width: 140px; height: 50px; background: #f5f5f5; color: #ff6700; border: 1px solid #ff6700; cursor: pointer; }
+        
+        .spec-table { width: 1226px; margin: 30px auto; border-collapse: collapse; }
+        .spec-table th, .spec-table td { border: 1px solid #eee; padding: 15px; text-align: left; }
+        .spec-table th { background: #f5f5f5; width: 200px; }
+        
+        .footer { background: #f5f5f5; padding: 30px 0; text-align: center; margin-top: 30px; }
+        .footer a { color: #666; text-decoration: none; margin: 0 10px; }
+    </style>
+</head>
+<body>
+    <!-- 黑色导航 -->
+    <div class="black-nav">
+        <div class="wrap">
+            <ul>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+            </ul>
+            <ul>
+                <li><a href="index.html">首页</a><span>|</span></li>
+                <li><a href="guanwang.html">官网</a><span>|</span></li>
+                <li><a href="detail1.html">产品信息</a><span>|</span></li>
+                <li><a href="./news.html">新闻</a><span>|</span></li>
+                <li><a href="./register.html">注册</a><span>|</span></li>
+                <li><a href="./detail.html">购物车</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- 白色导航 -->
+    <div class="white-nav">
+        <div class="wrap">
+            <div class="logo">
+                <img src="img/logo.png" alt="小米logo">
+            </div>
+            <div class="nav-bar">
+                <a href="detail1.html">手机</a>
+                <a href="tv.html">电视</a>
+                <a href="laptop.html">笔记本</a>
+                <a href="pad.html">平板</a>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="星悦电视Y75">
+                <button>🔍</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 产品详情 -->
+    <div class="product-container">
+        <div class="product-images">
+            <img id="main-image" src="img/tv-1.jpg" alt="星悦电视Y75">
+            <div class="thumbnail-list">
+                <img class="thumbnail active" src="img/tv-1.jpg" onclick="changeImage(this)">
+                <!-- <img class="thumbnail" src="img/tv-1-2.jpg" onclick="changeImage(this)">
+                <img class="thumbnail" src="img/tv-1-3.jpg" onclick="changeImage(this)"> -->
+            </div>
+        </div>
+        
+        <div class="product-info">
+            <h1 class="product-title">星悦电视Y75</h1>
+            <p class="product-subtitle">144Hz高刷 4K超高清全面屏 | 智能语音控制 | 杜比音效</p>
+            
+            <div class="product-price">
+                <span class="price-current">¥3299</span>
+                <span class="price-original">¥3699</span>
+            </div>
+            
+            <div class="options">
+                <p class="option-title">选择尺寸：</p>
+                <div class="option-item active" onclick="selectOption(this)">75英寸</div>
+                <div class="option-item" onclick="selectOption(this)">65英寸</div>
+                <div class="option-item" onclick="selectOption(this)">55英寸</div>
+            </div>
+            
+            <div class="options">
+                <p class="option-title">选择版本：</p>
+                <div class="option-item active" onclick="selectOption(this)">标准版</div>
+                <div class="option-item" onclick="selectOption(this)">Pro版（带音响）</div>
+            </div>
+            
+            <button class="buy-btn" onclick="goToCheckout()">立即购买</button>
+            <button class="cart-btn">加入购物车</button>
+        </div>
+    </div>
+    
+    <!-- 规格参数 -->
+    <table class="spec-table">
+        <tr>
+            <th>屏幕尺寸</th>
+            <td>75英寸 4K超高清（3840×2160）</td>
+        </tr>
+        <tr>
+            <th>刷新率</th>
+            <td>144Hz 高刷，支持MEMC运动补偿</td>
+        </tr>
+        <tr>
+            <th>处理器</th>
+            <td>A73四核处理器，2GB+32GB存储</td>
+        </tr>
+        <tr>
+            <th>音效系统</th>
+            <td>DTS-HD解码，杜比全景声</td>
+        </tr>
+        <tr>
+            <th>接口</th>
+            <td>HDMI 2.1×2，USB 3.0×1，网线接口×1</td>
+        </tr>
+        <tr>
+            <th>系统</th>
+            <td>MIUI for TV 4.0</td>
+        </tr>
+        <tr>
+            <th>能效等级</th>
+            <td>二级能效</td>
+        </tr>
+    </table>
+    
+    <!-- 页脚 -->
+    <div class="footer">
+        <a href="#">7天无理由退货</a>
+        <a href="#">15天免费换货</a>
+        <a href="#">满99元免运费</a>
+        <a href="#">售后上门服务</a>
+        <p style="margin-top:15px; color:#999;">© 2025 智能产品商城 版权所有</p>
+    </div>
+    
+    <script>
+        // 切换商品图片
+        function changeImage(el) {
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('main-image').src = el.src;
+        }
+        
+        // 选择规格选项
+        function selectOption(el) {
+            const siblings = Array.from(el.parentElement.querySelectorAll('.option-item'));
+            siblings.forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+        }
+        
+        // 跳转到结算页
+        function goToCheckout() {
+            window.location.href = 'deal.html';
+        }
+    </script>
+</body>
+</html>

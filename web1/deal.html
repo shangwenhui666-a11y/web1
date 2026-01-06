@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>结算页面</title>
+    <link rel="stylesheet" href="css/css.css">
+    <style>
+        /* 结算页面特有样式 */
+        .checkout-container {
+            width: 1226px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .checkout-title {
+            font-size: 20px;
+            color: #333;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        .address-section, .order-section, .payment-section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #ff6700;
+        }
+        .address-card {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            position: relative;
+        }
+        .address-card.active {
+            border-color: #ff6700;
+        }
+        .address-card .default-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff6700;
+            color: white;
+            padding: 2px 8px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+        .address-info {
+            margin-bottom: 10px;
+        }
+        .add-address {
+            border: 1px dashed #e0e0e0;
+            padding: 20px;
+            text-align: center;
+            color: #616161;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .add-address:hover {
+            border-color: #ff6700;
+            color: #ff6700;
+        }
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .order-table th, .order-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .order-table th {
+            background-color: #f5f5f5;
+            color: #616161;
+            font-weight: normal;
+        }
+        .product-img {
+            width: 80px;
+            height: 80px;
+        }
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .payment-method {
+            flex: 1;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .payment-method.active {
+            border-color: #ff6700;
+            background-color: rgba(255, 103, 0, 0.05);
+        }
+        .payment-method img {
+            height: 30px;
+        }
+        .order-summary {
+            text-align: right;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .summary-item {
+            margin-bottom: 10px;
+            color: #616161;
+        }
+        .summary-total {
+            font-size: 18px;
+            color: #ff6700;
+            margin: 15px 0;
+        }
+        .pay-btn {
+            width: 200px;
+            height: 50px;
+            background-color: #ff6700;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pay-btn:hover {
+            background-color: #f25807;
+        }
+    </style>
+</head>
+<body>
+    <!-- 黑色导航 start -->
+    <div class="black-nav">
+        <div class="wrap">
+            <ul class="black-nav-right">
+                <li><a href="index.html" >首页</a><span>|</span></li>
+                <li><a href="guanwang.html" >官网</a><span>|</span></li>
+                <li><a href="detail1.html" >产品信息</a><span>|</span></li>
+                <li><a href="./news.html" >新闻</a><span>|</span></li>             
+				<li><a href="./register.html" >注册</a><span>|</span></li>
+				<li><a href="./detail.html" >购物车</a><span>|</span></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 黑色导航 end -->
+
+    <!-- 白色导航 start -->
+    <div class="white-nav">
+        <div class="wrap">
+            <div class="logo">
+                <img src="img/logo.png" alt="小米logo">
+            </div>
+            <div class="nav-bar">
+                <ul>
+                    <li><a href="#">手机</a></li>
+                    <li><a href="#">电视</a></li>
+                    <li><a href="#">笔记本</a></li>
+                    <li><a href="#">平板</a></li>
+
+                </ul>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="搜索产品">
+                <button>🔍</button>
+            </div>
+        </div>
+    </div>
+    <!-- 白色导航 end -->
+
+    <!-- 结算内容区 -->
+    <div class="checkout-container">
+        <h2 class="checkout-title">订单结算</h2>
+
+        <!-- 收货地址区域 -->
+        <div class="address-section">
+            <h3 class="section-title">收货地址</h3>
+            <div class="address-card active">
+                <div class="default-tag">默认地址</div>
+                <div class="address-info">
+                    <strong>张三</strong> 13800138000
+                </div>
+                <div>北京市海淀区中关村大街1号 小辉科技园 1号楼 1001室</div>
+            </div>
+            <div class="add-address">+ 添加新地址</div>
+        </div>
+
+        <!-- 订单商品区域 -->
+        <div class="order-section">
+            <h3 class="section-title">订单商品</h3>
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>商品信息</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>小计</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="img/heisha.jpg" alt="Xiaomi 14" class="product-img">
+                            <span>黑纱 14 徕卡Summilux镜头 12GB+256GB 黑色</span>
+                        </td>
+                        <td>4299元</td>
+                        <td>1</td>
+                        <td>4299元</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="img/耳机.jpg" alt="小米Buds 4 Pro" class="product-img">
+                            <span>小新Buds 4 Pro 降噪耳机 黑色</span>
+                        </td>
+                        <td>899元</td>
+                        <td>1</td>
+                        <td>899元</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 支付方式区域 -->
+        <div class="payment-section">
+            <h3 class="section-title">支付方式</h3>
+            <div class="payment-methods">
+                <div class="payment-method active">
+                    <img src="img/微信.jpg" alt="微信支付">
+                    <p>微信支付</p>
+                </div>
+                <div class="payment-method">
+                    <img src="img/支付宝.webp" alt="支付宝">
+                    <p>支付宝</p>
+                </div>
+               
+            </div>
+        </div>
+
+        <!-- 订单总结区域 -->
+        <div class="order-summary">
+            <div class="summary-item">商品总价：<span>5198元</span></div>
+            <div class="summary-item">运费：<span>0元</span></div>
+            <div class="summary-item">优惠券：<span>-100元</span></div>
+            <div class="summary-total">实付款：<strong>5098元</strong></div>
+            <button class="pay-btn">提交订单并支付</button>
+        </div>
+    </div>
+
+    <!-- 页脚模块 -->
+    <div class="footer-service">
+        <div class="wrap">
+            <ul>
+                <li><a href="#">预约维修服务</a></li>
+                <li><a href="#">7天无理由退货</a></li>
+                <li><a href="#">15天免费换货</a></li>
+                <li><a href="#">满99元免运费</a></li>
+                <li><a href="#">520余家售后网点</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
